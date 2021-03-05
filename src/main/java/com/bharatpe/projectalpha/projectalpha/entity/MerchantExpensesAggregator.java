@@ -18,7 +18,7 @@ public class MerchantExpensesAggregator extends BaseEntity {
     private String activeExpenseId;
 
     @Column(name="amount")
-    private Float amount;
+    private Double amount;
 
     @Column(name="mode")
     private String mode;
@@ -49,11 +49,11 @@ public class MerchantExpensesAggregator extends BaseEntity {
         this.activeExpenseId = activeExpenseId;
     }
 
-    public Float getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
