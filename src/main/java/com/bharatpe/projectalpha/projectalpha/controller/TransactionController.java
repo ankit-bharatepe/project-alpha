@@ -1,6 +1,8 @@
 package com.bharatpe.projectalpha.projectalpha.controller;
 
-import org.springframework.http.HttpStatus;
+import com.bharatpe.projectalpha.projectalpha.manager.TransactionManage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TransactionController {
 
+    @Autowired
+    TransactionManage transactionManage;
     @RequestMapping(value = "/get-lucky-transaction", method = RequestMethod.GET)
-    public ResponseEntity<Object> getLuckyTransaction(){
-        return new ResponseEntity<>("OK" , HttpStatus.OK);
+    public ResponseEntity<Object> getLuckyTransaction() throws JsonProcessingException {
+        return transactionManage.getTransaction();
+
     }
 }

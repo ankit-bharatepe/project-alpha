@@ -3,20 +3,33 @@ package com.bharatpe.projectalpha.projectalpha.entity;
 
 import com.bharatpe.common.entities.Merchant;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "dummy_transaction")
 public class DummyTransaction {
+
+    @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "merchant_id")
     private Long merchantId;
+
+    @Column(name = "status")
     private String status;
+
+    @Column(name = "order_id")
     private Long orderId;
+
+    @Column(name = "txn_type")
     private String txnType;
+
+    @Column(name = "credited_to")
     private String creditedTo;
+
+    @Column(name = "debited_from")
     private String debitedFrom;
 
     public Long getId() {
