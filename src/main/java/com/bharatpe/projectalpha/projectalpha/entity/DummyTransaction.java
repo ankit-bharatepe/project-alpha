@@ -32,6 +32,15 @@ public class DummyTransaction {
     @Column(name = "debited_from")
     private String debitedFrom;
 
+    @Column(name = "is_lucky")
+    private String isLucky;
+
+    @Column(name = "amount")
+    private String amount;
+
+    @Column(name = "lucky_status")
+    private String luckyStatus;
+
     public Long getId() {
         return id;
     }
@@ -86,5 +95,29 @@ public class DummyTransaction {
 
     public void setDebitedFrom(String debitedFrom) {
         this.debitedFrom = debitedFrom;
+    }
+
+    public String getIsLucky() {
+        return isLucky;
+    }
+
+    public void setIsLucky(String isLucky) {
+        this.isLucky = isLucky;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getLuckyStatus() {
+        return luckyStatus;
+    }
+
+    public void setLuckyStatus(String luckyStatus) {
+        this.luckyStatus = luckyStatus;
     }
 }
