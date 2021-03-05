@@ -12,4 +12,7 @@ public interface DummyTransactionDao extends CrudRepository<DummyTransaction,Lon
 
     @Query(nativeQuery = true,value = "select * from dummy_transaction")
     List<DummyTransaction> getAllTransaction();
+
+    @Query(value = "select * from dummy_transaction order by id desc limit 3",nativeQuery = true)
+    List<DummyTransaction> getIsLucky();
 }
