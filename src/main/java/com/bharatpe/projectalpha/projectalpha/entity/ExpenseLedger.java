@@ -1,15 +1,12 @@
 package com.bharatpe.projectalpha.projectalpha.entity;
 
+import com.bharatpe.common.entities.BaseEntity;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "expense_ledger")
-public class ExpenseLedger {
-
-    @Column(name = "id")
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+public class ExpenseLedger  extends BaseEntity {
 
     @Column(name = "merchant_id")
     private Long merchantId;
