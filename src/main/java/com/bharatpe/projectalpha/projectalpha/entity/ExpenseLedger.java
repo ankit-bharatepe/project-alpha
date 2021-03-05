@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class ExpenseLedger  extends BaseEntity {
 
     @Column(name = "merchant_id")
-    private Long merchantId;
+    private String merchantId;
 
     @Column(name = "txn_id")
     private String txnId;
@@ -21,21 +21,14 @@ public class ExpenseLedger  extends BaseEntity {
     private String status;
 
     @Column(name = "merchant_expense_agg_id")
-    private Long merchantExpenseAggId;
+    private String merchantExpenseAggId;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(Long merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
@@ -63,11 +56,11 @@ public class ExpenseLedger  extends BaseEntity {
         this.status = status;
     }
 
-    public Long getMerchantExpenseAggId() {
+    public String getMerchantExpenseAggId() {
         return merchantExpenseAggId;
     }
 
-    public void setMerchantExpenseAggId(Long merchantExpenseAggId) {
+    public void setMerchantExpenseAggId(String merchantExpenseAggId) {
         this.merchantExpenseAggId = merchantExpenseAggId;
     }
 }

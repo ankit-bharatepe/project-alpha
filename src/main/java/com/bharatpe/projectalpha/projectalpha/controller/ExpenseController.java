@@ -27,12 +27,25 @@ public class ExpenseController {
     public ResponseEntity<Object> addExpenses(@RequestParam(required = true) String type,
                                               @RequestParam(required = false) Double amount,
                                               @RequestParam(required = false) String bill_id,
+                                              @RequestParam(required = false) String provider_name,
                                               @RequestParam(required = true) String expense_id,
                                               @RequestParam(required = true) String merchant_id,
                                               @RequestParam(required = true) String bill_date,
                                               @RequestParam(required = false) String account_number,
-                                              @RequestParam(required = false) String ifsc) {
-        return new ResponseEntity<>(expenseManager.addExpenses(type, amount, bill_id, expense_id, merchant_id, bill_date, account_number, ifsc), HttpStatus.OK);
+                                              @RequestParam(required = false) String account_name,
+                                              @RequestParam(required = false) String school_name,
+                                              @RequestParam(required = false) String city,
+                                              @RequestParam(required = false) String state,
+                                              @RequestParam(required = false) String school_id,
+                                              @RequestParam(required = false) String ifsc,
+                                              @RequestParam(required = false) String employee_name,
+                                              @RequestParam(required = false) String salary,
+                                              @RequestParam(required = false) String name,
+                                              @RequestParam(required = false) String transaction_title,
+                                              @RequestParam(required = false) String house_number,
+                                              @RequestParam(required = false) String house_address,
+                                              @RequestParam(required = false) String other_details) {
+        return new ResponseEntity<>(expenseManager.addExpenses(type, amount, bill_id, provider_name,  expense_id, merchant_id, bill_date, account_number, ifsc, account_name,  school_name, city, state, school_id, employee_name, salary, name, transaction_title, other_details, house_number, house_address), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update-subscription", method = RequestMethod.GET)
@@ -41,10 +54,28 @@ public class ExpenseController {
                                                 @RequestParam(required = false) String bill_id,
                                                 @RequestParam(required = false) String expense_id,
                                                 @RequestParam(required = false) String bill_date,
-                                                @RequestParam(required = false) String account_number,
+                                                 @RequestParam(required = false) String provider_name,
+                                                 @RequestParam(required = false) String account_number,
                                                 @RequestParam(required = false) String ifsc,
+                                                 @RequestParam(required = false) String school_name,
+                                                 @RequestParam(required = false) String account_name,
+                                                 @RequestParam(required = false) String city,
+                                                 @RequestParam(required = false) String state,
+                                                 @RequestParam(required = false) String school_id,
+                                                 @RequestParam(required = false) String employee_name,
+                                                 @RequestParam(required = false) String salary,
+                                                 @RequestParam(required = false) String name,
+                                                 @RequestParam(required = false) String transaction_title,
+                                                 @RequestParam(required = false) String other_details,
+                                                 @RequestParam(required = false) String house_number,
+                                                 @RequestParam(required = false) String house_address,
                                                  @RequestParam(required = false) String status) {
-        return new ResponseEntity<>(expenseManager.updateExpenses(expense_agr_id, amount, bill_id, expense_id, bill_date, account_number, ifsc, status), HttpStatus.OK);
+        return new ResponseEntity<>(expenseManager.updateExpenses(expense_agr_id, amount, bill_id, provider_name, expense_id, bill_date, account_number, ifsc, account_name,  school_name, city, state, school_id, employee_name, salary, name, transaction_title, other_details, house_number, house_address, status), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/get-active-merchant-expenses", method = RequestMethod.GET)
+    public ResponseEntity<Object> activeMerchantExpenses(@RequestParam String merchantId) {
+        return new ResponseEntity<>(expenseManager.getActiveMerchantExpenses(merchantId), HttpStatus.OK);
     }
 
 }
