@@ -61,8 +61,7 @@ public class TransactionManage {
         String smss = "Dear " + "Ankit Mishra" + ", you received a transaction of " + amount + "from " + name ;
         smsServiceHandler.sendSMS(mobile, smss, NotificationProvider.SMS.GUPSHUP);
         if(dummyTransactionList.size()%3==0){
-            if (isJinny){
-                isJinny = false;
+
                 List<String> mobiles = new ArrayList<>() {{
                     add("918431726188");
                 }};
@@ -70,16 +69,6 @@ public class TransactionManage {
                 smsServiceHandler.sendSMS(mobiles, sms, NotificationProvider.SMS.GUPSHUP);
                 dummyTransaction.setIsLucky("jin");
                 dummyTransaction.setLuckyStatus("true");
-            }else {
-                isJinny = true;
-                List<String> mobiles = new ArrayList<>() {{
-                    add("918431726188");
-                }};
-                String sms = "Dear " + "Ankit Mishra" + ", you got a spin on your transaction of amount " + amount + " from " + name;
-                smsServiceHandler.sendSMS(mobiles, sms, NotificationProvider.SMS.GUPSHUP);
-                dummyTransaction.setIsLucky("spin");
-                dummyTransaction.setLuckyStatus("true");
-            }
         }
         dummyTransactionDao.save(dummyTransaction);
         return new ResponseEntity<>("OK", HttpStatus.OK);
@@ -154,13 +143,13 @@ public class TransactionManage {
         activeCashBack.setActiveCashBackId(id);
         activeCashBack.setMerchantId(merchantId);
         if(id.equalsIgnoreCase("1")){
-            activeCashBack.setUrl("");
+            activeCashBack.setUrl("https://loyalty-frontend.bharatpe.in");
         }else if(id.equalsIgnoreCase("2")){
             activeCashBack.setUrl("https://safe-gold.bharatpe.in/");
         }else if(id.equalsIgnoreCase("3")){
             activeCashBack.setUrl("https://loan.bharatpe.in/");
         }else if(id.equalsIgnoreCase("4")){
-            activeCashBack.setUrl("");
+            activeCashBack.setUrl("https://bharatpe-club.bharatpe.in/");
         }else if(id.equalsIgnoreCase("5")){
             activeCashBack.setUrl("https://interest-account.bharatpe.in/");
         }
