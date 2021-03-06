@@ -225,7 +225,7 @@ public class ExpenseManager {
                 merchantExpensesAggregator.setActiveExpenseId(expense_id);
             }
             if(Objects.nonNull(status) && !status.isEmpty()){
-                merchantExpensesAggregator.setActiveExpenseId(expense_id);
+                merchantExpensesAggregator.setStatus(status);
             }
 
 
