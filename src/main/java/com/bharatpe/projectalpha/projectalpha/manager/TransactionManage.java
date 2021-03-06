@@ -6,7 +6,10 @@ import com.bharatpe.common.entities.Merchant;
 import com.bharatpe.common.entities.MerchantBankDetail;
 import com.bharatpe.common.enums.NotificationProvider;
 import com.bharatpe.common.handlers.SmsServiceHandler;
+import com.bharatpe.projectalpha.projectalpha.dao.ActiveCashBackDao;
 import com.bharatpe.projectalpha.projectalpha.dao.DummyTransactionDao;
+import com.bharatpe.projectalpha.projectalpha.entity.ActiveCashBack;
+import com.bharatpe.projectalpha.projectalpha.entity.ActiveExpenses;
 import com.bharatpe.projectalpha.projectalpha.entity.DummyTransaction;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,6 +37,9 @@ public class TransactionManage {
 
     @Autowired
     SmsServiceHandler smsServiceHandler;
+
+    @Autowired
+    ActiveCashBackDao activeCashBackDao;
 
 
     public ResponseEntity<Object> getTransaction(String amount , String name) throws JsonProcessingException {
@@ -74,15 +80,6 @@ public class TransactionManage {
                 dummyTransaction.setIsLucky("spin");
                 dummyTransaction.setLuckyStatus("true");
             }
-//            DummyTransaction dummyTransactionZero = new DummyTransaction();
-//            dummyTransactionZero.setMerchantId(1L);
-//            dummyTransactionZero.setCreditedTo("");
-//            dummyTransactionZero.setDebitedFrom("");
-//            dummyTransactionZero.setTxnType("");
-//            dummyTransactionZero.setStatus("");
-//            dummyTransactionZero.setAmount("0.0");
-//            dummyTransactionZero.setIsLucky(null);
-//            dummyTransactionDao.save(dummyTransactionZero);
         }
         dummyTransactionDao.save(dummyTransaction);
         return new ResponseEntity<>("OK", HttpStatus.OK);
@@ -102,4 +99,73 @@ public class TransactionManage {
         }
         return new ResponseEntity<>(objectMapper.writeValueAsString(map),HttpStatus.OK);
     }
+
+    public ResponseEntity<Object> getList(){
+        try {
+            List response = new ArrayList();
+            Map<String,String> map1 = new LinkedHashMap<>();
+            map1.put("id" , "1");
+            map1.put("title" , "2x run");
+            map1.put("description" , "having low transactions");
+            response.add(map1);
+
+
+            Map<String,String> map2 = new LinkedHashMap<>();
+            map2.put("id" , "2");
+            map2.put("title" , "safe gold");
+            map2.put("description" , "Merchant having high amount");
+            response.add(map2);
+
+            Map<String,String> map3 = new LinkedHashMap<>();
+            map3.put("id" , "3");
+            map3.put("title" , "Loan");
+            map3.put("description" , "never applied for loan");
+            response.add(map3);
+
+            Map<String,String> map4 = new LinkedHashMap<>();
+            map4.put("id" , "4");
+            map4.put("title" , "bharatpe club");
+            map4.put("description" , "active user");
+            response.add(map4);
+
+            Map<String,String> map5 = new LinkedHashMap<>();
+            map5.put("id" , "5");
+            map5.put("title" , "interest account cashback");
+            map5.put("description" , "not using interest account");
+            response.add(map5);
+
+            return new ResponseEntity<>(objectMapper.writeValueAsString(response),HttpStatus.OK);
+        }catch (Exception e){
+
+        }
+       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<Object> getActiveCashback(String merchantId) throws JsonProcessingException {
+        List<ActiveCashBack> activeCashBacks = activeCashBackDao.findByMerchantIdAndStatus(merchantId,"ACTIVE");
+        if (activeCashBacks.size()==0)
+            return new ResponseEntity<>("Not Found" , HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(objectMapper.writeValueAsString(activeCashBacks),HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> setActiveCashback(String merchantId , String id) throws JsonProcessingException {
+        ActiveCashBack activeCashBack = new ActiveCashBack();
+        activeCashBack.setStatus("ACTIVE");
+        activeCashBack.setActiveCashBackId(id);
+        activeCashBack.setMerchantId(merchantId);
+        if(id.equalsIgnoreCase("1")){
+            activeCashBack.setUrl("");
+        }else if(id.equalsIgnoreCase("2")){
+            activeCashBack.setUrl("https://safe-gold.bharatpe.in/");
+        }else if(id.equalsIgnoreCase("3")){
+            activeCashBack.setUrl("https://loan.bharatpe.in/");
+        }else if(id.equalsIgnoreCase("4")){
+            activeCashBack.setUrl("");
+        }else if(id.equalsIgnoreCase("5")){
+            activeCashBack.setUrl("https://interest-account.bharatpe.in/");
+        }
+        activeCashBackDao.save(activeCashBack);
+        return new ResponseEntity<>(objectMapper.writeValueAsString("ok"),HttpStatus.OK);
+    }
+
 }
