@@ -22,4 +22,20 @@ public class TransactionController {
     public ResponseEntity<Object> getJinnyOrSpin() throws JsonProcessingException {
         return transactionManage.getJinny();
     }
+
+    @RequestMapping(value = "/get-list")
+    public ResponseEntity<Object> getBenefit(){
+        return transactionManage.getList();
+    }
+
+    @RequestMapping(value = "/active-cashback")
+    public ResponseEntity<Object> getActive(@RequestParam(name = "merchantId") String merchantId) throws JsonProcessingException {
+        return transactionManage.getActiveCashback(merchantId);
+    }
+
+    @RequestMapping(value = "/save-active-cashback")
+    public ResponseEntity<Object> getActive(@RequestParam(name = "merchantId") String merchantId , @RequestParam(name = "cashbackId") String cashbackId) throws JsonProcessingException {
+        return transactionManage.setActiveCashback(merchantId,cashbackId);
+    }
+
 }
