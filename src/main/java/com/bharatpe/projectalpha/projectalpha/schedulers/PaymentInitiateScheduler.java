@@ -41,18 +41,18 @@ public class PaymentInitiateScheduler {
     @Autowired
     FPAccountDao fpAccountDao;
 
-//    @Scheduled(cron = "${payment.initiate:-}")
-    public void paymentInitiate() {
+ //   @Scheduled(cron = "${payment.complete:-}")
+    public void paymentComplete() {
 
         try {
-//        Date date = new Date();
+           Date date = new Date();
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
             Date today = new Date();
 
             Date todayWithZeroTime = formatter.parse(formatter.format(today));
 
-            logger.info("PaymentInitiateScheduler started ");
+            logger.info("PaymentCompleteScheduler started ");
 
 
             List<ExpenseLedger> expenseLedgers = expenseLedgerDao.findByStatusOrderByAmountAsc("INIT");
@@ -77,21 +77,21 @@ public class PaymentInitiateScheduler {
 
             if (totalAmount >= 0) {
                 List<String> mobiles = new ArrayList<>() {{
-                    add("918431726188");
+                    add("918103565784");
                 }};
                 String sms = "Dear Ankit Mishra, we have paid your expenses of  " + totalAmount + " please add money to interest account for further convinience";
-//                smsServiceHandler.sendSMS(mobiles, sms, NotificationProvider.SMS.GUPSHUP);
+                smsServiceHandler.sendSMS(mobiles, sms, NotificationProvider.SMS.GUPSHUP);
             }
         }catch (Exception ex){
             logger.error("Error occurred Er: ", ex);
         }
     }
 
-//    @Scheduled(cron = "${payment.initiate:-}")
-    public void paymentComplete() {
+  //  @Scheduled(cron = "${payment.initiate:-}")
+    public void paymentInitiate() {
 
         try {
-//        Date date = new Date();
+            Date date = new Date();
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
             Date today = new Date();
@@ -129,10 +129,10 @@ public class PaymentInitiateScheduler {
 
             if (totalAmount >= 0) {
                 List<String> mobiles = new ArrayList<>() {{
-                    add("918431726188");
+                    add("918103565784");
                 }};
                 String sms = "Dear Ankit Mishra, your total expenses of  " + totalAmount + " will be paid by today ";
-//                smsServiceHandler.sendSMS(mobiles, sms, NotificationProvider.SMS.GUPSHUP);
+                smsServiceHandler.sendSMS(mobiles, sms, NotificationProvider.SMS.GUPSHUP);
             }
         }catch (Exception ex){
             logger.error("Error occurred Er: ", ex);
